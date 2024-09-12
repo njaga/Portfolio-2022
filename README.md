@@ -13,16 +13,18 @@ Vous rêvez d'un portfolio qui reflète votre talent ? **Portfolio Développeur*
 - [Sections](#-sections)
 - [Démo](#-démo)
 - [Thèmes](#-thèmes)
-- [Installation](#-installation)
+- [Installation](#️-installation)
 - [Démarrage](#-démarrage)
 - [Structure des dossiers](#-structure-des-dossiers)
-- [Utilisation](#-utilisation)
-- [SEO](#-seo)
+- [Utilisation](#️-utilisation)
+- [SEO](#️-seo)
 - [Packages utilisés](#-packages-utilisés)
-- [APIs utilisées](#-apis-utilisées)
+- [APIs utilisées](#️-apis-utilisées)
 - [Polices et Images](#-polices-et-images)
 - [Fonctionnalités à venir](#-fonctionnalités-à-venir)
 - [Contributeurs](#-contributeurs)
+- [Contact](#-contact)
+- [Réseaux Sociaux](#-réseaux-sociaux)
 
 ---
 
