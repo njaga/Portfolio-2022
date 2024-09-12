@@ -87,7 +87,7 @@ git --version
 1. **Clonez le dépôt :**
    ```bash
    git clone https://github.com/njaga/Portfolio-2022.git
-   cd developer-portfolio
+   cd Portfolio-2022
    ```
 
 2. **Installez les dépendances :**
@@ -192,3 +192,23 @@ Vos contributions sont les bienvenues ! N'hésitez pas à soumettre des pull req
 ---
 
 🌟 Créez votre portfolio de rêve dès aujourd'hui avec **Portfolio Développeur** !
+
+---
+
+## 📱 Contact
+
+Si vous souhaitez discuter de collaborations, de projets ou simplement me poser des questions, n'hésitez pas à me contacter via les canaux suivants :
+
+- ✉️ Email : [contact@ndiagandiaye.com](mailto:contact@ndiagandiaye.com)
+- 🤳 Téléphone : +221 78 163 34 19
+- 🏚️ Adresse : Scat Urbam, Dakar, Sénégal - 11500
+- 🌐 Site : [https://ndiagandiaye.com](https://ndiagandiaye.com)
+
+## 🌏 Réseaux Sociaux
+
+Suivez-moi sur les réseaux sociaux pour rester informé de mes projets et actualités :
+
+- Facebook : [https://www.facebook.com/njaganjaay](https://www.facebook.com/njaganjaay)
+- LinkedIn : [https://www.linkedin.com/in/ndiagandiaye](https://www.linkedin.com/in/ndiagandiaye)
+- Instagram : [https://www.instagram.com/ndiagandiaye01/](https://www.instagram.com/ndiagandiaye01/)
+- Twitter : [https://x.com/ndiaga_dev](https://x.com/ndiaga_dev)
