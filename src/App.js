@@ -1,17 +1,11 @@
-import React, { useContext, useEffect } from "react";
-import {
-    BrowserRouter as Router,
-    Route,
-    Switch,
-    Redirect,
-} from "react-router-dom";
+import React, { useContext, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { ThemeContext } from './contexts/ThemeContext';
+import { Main, BlogPage, ProjectPage } from './pages';
+import { BackToTop } from './components';
+import ScrollToTop from './utils/ScrollToTop';
 
-import { ThemeContext } from "./contexts/ThemeContext";
-import { Main, BlogPage, ProjectPage } from "./pages";
-import { BackToTop } from "./components";
-import ScrollToTop from "./utils/ScrollToTop";
-
-import "./App.css";
+import './App.css';
 
 function App() {
     const { theme } = useContext(ThemeContext);
@@ -31,13 +25,14 @@ function App() {
         <div className="app">
             <Router>
                 <ScrollToTop />
-                <Switch>
-                    <Route path="/" exact component={Main} />
-                    <Route path="/blog" exact component={BlogPage} />
-                    <Route path="/projects" exact component={ProjectPage} />
-
-                    <Redirect to="/" />
-                </Switch>
+                <Routes>
+                    <Route path="/" element={<Main />} />
+                    <Route path="/blog" element={<BlogPage />} />
+                    <Route path="/projects" element={<ProjectPage />} />
+                    
+                    {/* Redirect all unknown routes to the home page */}
+                    <Route path="*" element={<Navigate to="/" />} />
+                </Routes>
             </Router>
             <BackToTop />
         </div>

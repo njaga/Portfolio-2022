@@ -1,19 +1,19 @@
 {
-  "short_name": "Developer Portfolio",
-  "name": "Developer Portfolio template by hhhrrrttt222111",
+  "short_name": "Ndiaga Ndiaye",
+  "name": "Developer Portfolio by Ndiaga Ndiaye",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "favicon-dev.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "favicon.png",
+      "src": "favicon-dev.png",
       "type": "image/png",
       "sizes": "64x64"
     },
     {
-      "src": "favicon512.png",
+      "src": "favicon-dev.png",
       "type": "image/png",
       "sizes": "512x512"
     }
