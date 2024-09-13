@@ -1,45 +1,36 @@
+# 📃 Code de Conduite
 
-# Please note we have a code of conduct, please follow it in all your interactions with the project.
+## Notre Engagement
 
+Pour favoriser un environnement ouvert et accueillant, nous, contributeurs et mainteneurs, nous engageons à faire en sorte que la participation à notre projet et à notre communauté soit une expérience exempte de harcèlement pour tous, quels que soient l’âge, la taille, le handicap, l’origine ethnique, l’identité et l’expression de genre, le niveau d’expérience, la nationalité, l’apparence personnelle, la race, la religion ou l’orientation sexuelle.
 
-## Code of Conduct
+## Nos Normes
 
-### Our Pledge
+Voici des exemples de comportements qui contribuent à créer un environnement positif :
 
-In the interest of fostering an open and welcoming environment, we as
-contributors and maintainers pledge to making participation in our project and
-our community a harassment-free experience for everyone, regardless of age, body
-size, disability, ethnicity, gender identity and expression, level of experience,
-nationality, personal appearance, race, religion, or sexual identity and
-orientation.
+- Utiliser un langage accueillant et inclusif.
+- Respecter les points de vue et les expériences divergents.
+- Accepter les critiques constructives avec bienveillance.
+- Se concentrer sur ce qui est le mieux pour la communauté.
+- Faire preuve d'empathie envers les autres membres de la communauté.
 
-### Our Standards
+Exemples de comportements inacceptables de la part des participants :
 
-Examples of behavior that contributes to creating a positive environment
-include:
+- Utilisation d’un langage ou d’une imagerie sexualisée et attention ou avances sexuelles non sollicitées.
+- Trollage, commentaires insultants ou dérogatoires, et attaques personnelles ou politiques.
+- Harcèlement public ou privé.
+- Publication des informations privées d’autres personnes, telles que des adresses physiques ou électroniques, sans permission explicite.
+- Autres comportements qui pourraient raisonnablement être considérés comme inappropriés dans un cadre professionnel.
 
-* Using welcoming and inclusive language
-* Being respectful of differing viewpoints and experiences
-* Gracefully accepting constructive criticism
-* Focusing on what is best for the community
-* Showing empathy towards other community members
+## Attribution
 
-Examples of unacceptable behavior by participants include:
+Ce Code de Conduite est inspiré du [Contributor Covenant][homepage], version 1.4, disponible sur [http://contributor-covenant.org/version/1/4][version].
 
-* The use of sexualized language or imagery and unwelcome sexual attention or
-advances
-* Trolling, insulting/derogatory comments, and personal or political attacks
-* Public or private harassment
-* Publishing others' private information, such as a physical or electronic
-  address, without explicit permission
-* Other conduct which could reasonably be considered inappropriate in a
-  professional setting
-
-
-### Attribution
-
-This Code of Conduct is adapted from the [Contributor Covenant][homepage], version 1.4,
-available at [http://contributor-covenant.org/version/1/4][version]
-
-[homepage]: http://contributor-covenant.org
+[homepage]: http://contributor-covenant.org  
 [version]: http://contributor-covenant.org/version/1/4/
+
+---
+
+Merci de contribuer à faire de notre projet un lieu respectueux et inclusif !
+
+Pour toute question ou préoccupation, veuillez me contacter à [contact@ndiagandiaye.com](mailto:contact@ndiagandiaye.com).
