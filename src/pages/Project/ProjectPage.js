@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef, useMemo, useCallback } from "react";
 import { Helmet } from "react-helmet";
 import {
     Grid,
@@ -7,9 +7,10 @@ import {
     Select,
     MenuItem,
     Button,
+    useMediaQuery,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { makeStyles, withStyles, useTheme } from "@material-ui/core/styles";
 import { AiOutlineHome } from "react-icons/ai";
 
 import "./ProjectPage.css";
@@ -23,32 +24,35 @@ function ProjectPage() {
     const [category, setCategory] = useState("all");
     const [sortBy, setSortBy] = useState("newest");
     const [currentPage, setCurrentPage] = useState(1);
-    const [filteredProjects, setFilteredProjects] = useState([]);
     const { theme } = useContext(ThemeContext);
+    const materialTheme = useTheme();
+    const isMobile = useMediaQuery(materialTheme.breakpoints.down("sm"));
+    const pageTopRef = useRef(null);
 
     const projectsPerPage = 9;
 
-    useEffect(() => {
-        const filtered = projectsData.filter((project) => {
-            const content =
-                project.projectName + project.projectDesc + project.tags.join(" ");
-            return (
-                content.toLowerCase().includes(search.toLowerCase()) &&
-                (category === "all" || project.category === category)
-            );
-        });
-
-        const sorted = filtered.sort((a, b) => {
-            if (sortBy === "newest") {
-                return new Date(b.date) - new Date(a.date);
-            } else {
-                return new Date(a.date) - new Date(b.date);
-            }
-        });
-
-        setFilteredProjects(sorted);
-        setCurrentPage(1);
+    const filteredProjects = useMemo(() => {
+        return projectsData
+            .filter((project) => {
+                const content =
+                    project.projectName + project.projectDesc + project.tags.join(" ");
+                return (
+                    content.toLowerCase().includes(search.toLowerCase()) &&
+                    (category === "all" || project.category === category)
+                );
+            })
+            .sort((a, b) => {
+                if (sortBy === "newest") {
+                    return new Date(b.date) - new Date(a.date);
+                } else {
+                    return new Date(a.date) - new Date(b.date);
+                }
+            });
     }, [search, category, sortBy]);
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [filteredProjects]);
 
     const indexOfLastProject = currentPage * projectsPerPage;
     const indexOfFirstProject = indexOfLastProject - projectsPerPage;
@@ -57,19 +61,23 @@ function ProjectPage() {
         indexOfLastProject
     );
 
-    const pageNumbers = [];
-    for (
-        let i = 1;
-        i <= Math.ceil(filteredProjects.length / projectsPerPage);
-        i++
-    ) {
-        pageNumbers.push(i);
-    }
+    const pageNumbers = useMemo(() => {
+        const numbers = [];
+        for (let i = 1; i <= Math.ceil(filteredProjects.length / projectsPerPage); i++) {
+            numbers.push(i);
+        }
+        return numbers;
+    }, [filteredProjects.length]);
+
+    const handlePageChange = useCallback((number) => {
+        setCurrentPage(number);
+        pageTopRef.current.scrollIntoView({ behavior: 'smooth' });
+    }, []);
 
     const useStyles = makeStyles((t) => ({
         search: {
             color: theme.tertiary,
-            width: "40%",
+            width: "100%",
             height: "2.75rem",
             outline: "none",
             border: "none",
@@ -85,9 +93,6 @@ function ProjectPage() {
                     : "inset 3px 3px 6px #ffffffbd, inset -3px -3px 6px #00000030",
             "&::placeholder": {
                 color: theme.tertiary80,
-            },
-            [t.breakpoints.down("sm")]: {
-                width: "350px",
             },
         },
         home: {
@@ -116,6 +121,7 @@ function ProjectPage() {
         formControl: {
             margin: t.spacing(1),
             minWidth: 120,
+            width: "100%",
         },
         inputLabel: {
             color: '#ffffff',
@@ -149,6 +155,14 @@ function ProjectPage() {
                 backgroundColor: theme.tertiary,
             },
         },
+        filterContainer: {
+            display: "flex",
+            flexDirection: isMobile ? "column" : "row",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100%",
+            marginTop: isMobile ? "1rem" : 0,
+        },
     }));
 
     const classes = useStyles();
@@ -167,6 +181,7 @@ function ProjectPage() {
             <div
                 className="projectPage-header"
                 style={{ backgroundColor: theme.primary }}
+                ref={pageTopRef}
             >
                 <Link to="/">
                     <AiOutlineHome className={classes.home} />
@@ -182,6 +197,8 @@ function ProjectPage() {
                         placeholder="Rechercher projet..."
                         className={classes.search}
                     />
+                </div>
+                <div className={classes.filterContainer}>
                     <FormControl className={classes.formControl}>
                         <WhiteTextTypography>Catégorie</WhiteTextTypography>
                         <Select
@@ -244,7 +261,7 @@ function ProjectPage() {
                         <Button
                             key={number}
                             className={classes.pageButton}
-                            onClick={() => setCurrentPage(number)}
+                            onClick={() => handlePageChange(number)}
                         >
                             {number}
                         </Button>

@@ -18,6 +18,7 @@ import twentytwo from '../assets/svg/projects/twentytwo.svg'
 import twentythree from '../assets/svg/projects/twentythree.svg'
 import twentyfour from '../assets/svg/projects/twentyfour.svg'
 import twentyfive from '../assets/svg/projects/twentyfive.svg'
+import stock from '../assets/svg/projects/stock.svg'
 
 export const projectsData = [
     {
@@ -33,12 +34,24 @@ export const projectsData = [
     },
     {
         id: 20,
-        projectName: 'Logiciel Pékhé',
-        projectDesc: "Le logiciel de gestion du personnel de Vigilus centralise les plannings, absences, remplacements, heures supplémentaires, sanctions, et stocks, pour une gestion efficace des ressources humaines.",
+        projectName: 'Pékhé',
+        projectDesc: "Le de gestion du personnel de Vigilus centralise les plannings, absences, remplacements, heures supplémentaires, sanctions, et stocks, pour une gestion efficace des ressources humaines.",
         tags: ['Php', 'Bootstrap', 'JavaScript', 'MySql'],
         code: 'https://github.com/njaga/pekhe',
         demo: 'https://pekhe.vigilus-securite.com',
         image: seven,
+        category: 'application',
+        date: '2024-01-15'
+
+    },
+    {
+        id: 21,
+        projectName: 'Sunu Stock',
+        projectDesc: "Solution robuste, efficace et conviviale pour la gestion des stocks, des commandes et du catalogage des produits dans un environnement d'entreprise.",
+        tags: ['Php', 'Bootstrap', 'JavaScript', 'MySql'],
+        code: 'https://github.com/njaga/SunuStock',
+        demo: 'https://app-stock.ndiagandiaye.com/',
+        image: stock,
         category: 'application',
         date: '2024-01-15'
 
@@ -57,8 +70,8 @@ export const projectsData = [
     },
     {
         id: 3,
-        projectName: 'Logiciel Sangomar',
-        projectDesc: 'Le logiciel gère les interventions des équipes SSI (Systèmes de Sécurité Incendie), optimisant le suivi et la coordination des opérations de sécurité incendie.',
+        projectName: 'Sangomar',
+        projectDesc: 'Le gère les interventions des équipes SSI (Systèmes de Sécurité Incendie), optimisant le suivi et la coordination des opérations de sécurité incendie.',
         tags: ['Php', 'Bootstrap', 'JavaScript', 'MySql'],
         code: 'http://sangomar.groupevigilus.com/',
         demo: 'https://github.com/njaga/sangomar',
@@ -127,7 +140,7 @@ export const projectsData = [
     },
     {
         id: 9,
-        projectName: 'Logiciel Dabakh',
+        projectName: 'Dabakh',
         projectDesc: 'site de gestion pour l\'entreprise Carré d\'Or, facilitant la gestion des propriétés, des locataires, des baux, des contrats, et des transactions immobilières.',
         tags: ['PHP', 'JavaScript', 'MySql'],
         code: 'https://github.com/njaga/dabakh',

@@ -1,5 +1,5 @@
 import resume from '../assets/pdf/CV Ndiaga Ndiaye.pdf'
-import image from '../assets/png/0U5A7819-scaled.jpg'
+import image from '../assets/png/Ndiaga-Ndiaye-Développeur-web.jpg'
 
 export const headerData = {
     name: 'Ndiaga Ndiaye',

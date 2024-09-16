@@ -18,28 +18,23 @@ import { FiPhone, FiAtSign } from 'react-icons/fi';
 import { HiOutlineLocationMarker } from 'react-icons/hi';
 
 import { ThemeContext } from '../../contexts/ThemeContext';
-
 import { socialsData } from '../../data/socialsData';
 import { contactsData } from '../../data/contactsData';
 import './Contacts.css';
 
 function Contacts() {
     const [open, setOpen] = useState(false);
-
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
-
     const [success, setSuccess] = useState(false);
     const [errMsg, setErrMsg] = useState('');
-
     const { theme } = useContext(ThemeContext);
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
             return;
         }
-
         setOpen(false);
     };
 
@@ -125,9 +120,9 @@ function Contacts() {
 
     const classes = useStyles();
 
-    const handleContactForm = (e) => {
+    const handleContactForm = async (e) => {
         e.preventDefault();
-    
+
         if (name && email && message) {
             if (isEmail(email)) {
                 const responseData = {
@@ -135,22 +130,31 @@ function Contacts() {
                     email: email,
                     message: message,
                 };
-    
-                axios.post(contactsData.sheetAPI, responseData)
-                    .then((res) => {
-                        console.log('Succès:', res.data);
-                        setSuccess(true);
-                        setErrMsg('');
-                        setName('');
-                        setEmail('');
-                        setMessage('');
-                        setOpen(false);
-                    })
-                    .catch((error) => {
-                        console.error('Erreur lors de la soumission du formulaire:', error);
-                        setErrMsg('Une erreur s\'est produite lors de l\'envoi du formulaire. Veuillez réessayer plus tard.');
-                        setOpen(true);
-                    });
+
+                try {
+                    const response = await axios.post('http://localhost:3000/send-email', responseData);
+                    console.log('Succès:', response.data);
+                    setSuccess(true);
+                    setErrMsg('');
+                    setName('');
+                    setEmail('');
+                    setMessage('');
+                    setOpen(true);
+                } catch (error) {
+                    console.error('Erreur lors de la soumission du formulaire:', error);
+                    if (error.response) {
+                        // La requête a été faite et le serveur a répondu avec un code d'état
+                        // qui ne fait pas partie de la plage 2xx
+                        setErrMsg(`Erreur ${error.response.status}: ${error.response.data.message || 'Une erreur s\'est produite'}`);
+                    } else if (error.request) {
+                        // La requête a été faite mais aucune réponse n'a été reçue
+                        setErrMsg('Aucune réponse reçue du serveur. Veuillez vérifier votre connexion.');
+                    } else {
+                        // Quelque chose s'est passé lors de la configuration de la requête et a déclenché une erreur
+                        setErrMsg('Une erreur s\'est produite lors de la préparation de la requête.');
+                    }
+                    setOpen(true);
+                }
             } else {
                 setErrMsg('Email invalide');
                 setOpen(true);
@@ -160,6 +164,7 @@ function Contacts() {
             setOpen(true);
         }
     };
+
 
     return (
         <div
@@ -356,12 +361,12 @@ function Contacts() {
                             )}
                             {socialsData.whatsApp && (
                                 <a
-                                    href={socialsData.snapchat}
+                                    href={socialsData.whatsApp}
                                     target='_blank'
                                     rel='noreferrer'
                                     className={classes.socialIcon}
                                 >
-                                    <FaWhatsapp aria-label='whatsApp' />
+                                    <FaWhatsapp aria-label='WhatsApp' />
                                 </a>
                             )}
                             {socialsData.instagram && (
@@ -381,7 +386,7 @@ function Contacts() {
                                     rel='noreferrer'
                                     className={classes.socialIcon}
                                 >
-                                    <FaFacebook aria-label='Instagram' />
+                                    <FaFacebook aria-label='Facebook' />
                                 </a>
                             )}
                         </div>

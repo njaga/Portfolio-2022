@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Button } from '@material-ui/core';
-import { NavHashLink } from 'react-router-hash-link';
+import { Link } from 'react-scroll';
 import { makeStyles } from '@material-ui/core/styles';
 
 import './Landing.css';
@@ -9,9 +9,9 @@ import { headerData } from '../../data/headerData';
 import { socialsData } from '../../data/socialsData';
 
 import {
-    FaTwitter,
+    FaGithub,
     FaLinkedin,
-    FaInstagram,
+    FaTwitter,
     FaFacebook,
 } from 'react-icons/fa';
 
@@ -69,6 +69,13 @@ function Landing() {
 
     const classes = useStyles();
 
+    useEffect(() => {
+        document.documentElement.style.scrollBehavior = 'smooth';
+        return () => {
+            document.documentElement.style.scrollBehavior = '';
+        };
+    }, []);
+
     return (
         <div className='landing'>
             <div className='landing--container'>
@@ -77,7 +84,22 @@ function Landing() {
                     style={{ backgroundColor: theme.primary }}
                 >
                     <div className='lcl--content'>
+                        {socialsData.github && (
+
+                            <a
+                                href={socialsData.github}
+                                target='_blank'
+                                rel='noreferrer'
+                            >
+                                <FaGithub
+                                    className='landing--social'
+                                    style={{ color: theme.secondary }}
+                                    aria-label='Github'
+                                />
+                            </a>
+                        )}
                         {socialsData.linkedIn && (
+
                             <a
                                 href={socialsData.linkedIn}
                                 target='_blank'
@@ -87,19 +109,6 @@ function Landing() {
                                     className='landing--social'
                                     style={{ color: theme.secondary }}
                                     aria-label='LinkedIn'
-                                />
-                            </a>
-                        )}
-                        {socialsData.instagram && (
-                            <a
-                                href={socialsData.instagram}
-                                target='_blank'
-                                rel='noreferrer'
-                            >
-                                <FaInstagram
-                                    className='landing--social'
-                                    style={{ color: theme.secondary }}
-                                    aria-label='instragram'
                                 />
                             </a>
                         )}
@@ -165,13 +174,14 @@ function Landing() {
                                     </Button>
                                 </a>
                             )}
-                            <NavHashLink
-                                to='/#contacts'
-                                smooth
+                            <Link
+                                to='contacts'
+                                smooth={true}
+                                duration={500}
                                 className={classes.contactBtn}
                             >
                                 Contact
-                            </NavHashLink>
+                            </Link>
                         </div>
                     </div>
                 </div>

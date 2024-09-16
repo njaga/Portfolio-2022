@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeContext } from './contexts/ThemeContext';
-import { Main, BlogPage, ProjectPage } from './pages';
+import { Main, ProjectPage } from './pages';
 import { BackToTop } from './components';
 import ScrollToTop from './utils/ScrollToTop';
 
@@ -27,7 +27,6 @@ function App() {
                 <ScrollToTop />
                 <Routes>
                     <Route path="/" element={<Main />} />
-                    <Route path="/blog" element={<BlogPage />} />
                     <Route path="/projects" element={<ProjectPage />} />
                     
                     {/* Redirect all unknown routes to the home page */}
