@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Snackbar, IconButton, SnackbarContent } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import axios from 'axios';
+import emailjs from 'emailjs-com';
 import isEmail from 'validator/lib/isEmail';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -125,15 +125,19 @@ function Contacts() {
 
         if (name && email && message) {
             if (isEmail(email)) {
-                const responseData = {
-                    name: name,
-                    email: email,
+                const templateParams = {
+                    from_name: name,
+                    from_email: email,
                     message: message,
                 };
 
                 try {
-                    const response = await axios.post('http://localhost:3000/send-email', responseData);
-                    console.log('Succès:', response.data);
+                    await emailjs.send(
+                        'service_vc3ag3p',
+                        'template_rxe9pv4',
+                        templateParams,
+                        'n8Np92YtjOZCuDWF7'
+                    );
                     setSuccess(true);
                     setErrMsg('');
                     setName('');
@@ -141,18 +145,8 @@ function Contacts() {
                     setMessage('');
                     setOpen(true);
                 } catch (error) {
-                    console.error('Erreur lors de la soumission du formulaire:', error);
-                    if (error.response) {
-                        // La requête a été faite et le serveur a répondu avec un code d'état
-                        // qui ne fait pas partie de la plage 2xx
-                        setErrMsg(`Erreur ${error.response.status}: ${error.response.data.message || 'Une erreur s\'est produite'}`);
-                    } else if (error.request) {
-                        // La requête a été faite mais aucune réponse n'a été reçue
-                        setErrMsg('Aucune réponse reçue du serveur. Veuillez vérifier votre connexion.');
-                    } else {
-                        // Quelque chose s'est passé lors de la configuration de la requête et a déclenché une erreur
-                        setErrMsg('Une erreur s\'est produite lors de la préparation de la requête.');
-                    }
+                    console.error('Error sending email:', error);
+                    setErrMsg('Une erreur s\'est produite lors de l\'envoi de l\'email.');
                     setOpen(true);
                 }
             } else {
