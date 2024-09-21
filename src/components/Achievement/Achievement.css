@@ -218,6 +218,15 @@
     .achievement-cards {
         width: 100%;
     }
+    .buttonContainer {
+        position: relative;
+        margin-top: 4rem;
+    }
+    .buttonContainer button {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);  
+    }
 }
 
 @media screen and (max-width: 600px) {

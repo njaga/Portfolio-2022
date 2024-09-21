@@ -46,7 +46,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    margin-top: 2rem;
+    margin-top: 0.4rem;
 }
 
 .projects--viewAll a button {
