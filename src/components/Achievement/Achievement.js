@@ -76,10 +76,10 @@ function Achievement() {
 
     useEffect(() => {
         if (showAll && fourthElementRef.current) {
-            // Scroll to the fourth element when "Voir Plus" is clicked
+            // Scroll vers le quatrième élément uniquement lorsque "Voir Plus" est cliqué
             fourthElementRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        } else if (!showAll && achievementRef.current) {
-            // Scroll to the top of the achievement section when "Voir Moins" is clicked
+        } else if (!showAll && achievementRef.current && window.location.hash === '#achievement') {
+            // Scroll vers le haut de la section achievement seulement si l'URL contient le hash #achievement
             achievementRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     }, [showAll]);
