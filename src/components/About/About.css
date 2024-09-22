@@ -158,3 +158,27 @@
         width: 200px;
     }
 }
+
+@media screen and (max-width: 768px) {
+  .about {
+    min-height: auto; /* Supprime la hauteur minimale fixe */
+    padding-bottom: 0rem; /* Ajoute un peu d'espace en bas */
+  }
+
+  .about-body {
+    padding-top: 1rem; /* Réduit le padding en haut */
+  }
+
+  .about-description > h2 {
+    font-size: 2.5rem; /* Réduit légèrement la taille du titre */
+    margin-bottom: 1rem; /* Réduit l'espace sous le titre */
+  }
+
+  .about-img {
+    margin-top: 2rem; /* Réduit l'espace au-dessus de l'image */
+  }
+
+  .about-img > img {
+    width: 200px; /* Réduit la taille de l'image si nécessaire */
+  }
+}

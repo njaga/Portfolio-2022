@@ -1,5 +1,5 @@
 const resumePath = `${process.env.PUBLIC_URL}/assets/pdf/CV Ndiaga Ndiaye.pdf`;
-const imagePath = `${process.env.PUBLIC_URL}/assets/png/Ndiaga-Ndiaye-Développeur-web.jpg`;
+const imagePath = `${process.env.PUBLIC_URL}/assets/png/Ndiaga-Ndiaye-Developpeur-web.jpg`;
 
 export const headerData = {
     name: 'Ndiaga Ndiaye',

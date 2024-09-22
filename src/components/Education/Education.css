@@ -173,6 +173,17 @@
 }
 
 
-@media only screen and (device-width: 768px) {
-
-}
+@media screen and (max-width: 768px) {
+    .education {
+      padding-top: 2rem; /* Ajoute un peu d'espace en haut */
+    }
+  
+    .education-description > h1 {
+      font-size: 2.5rem; /* Réduit la taille du titre */
+      margin-bottom: 1.5rem; /* Réduit l'espace sous le titre */
+    }
+  
+    .education-card {
+      margin-bottom: 1rem; /* Réduit l'espace entre les cartes */
+    }
+  }

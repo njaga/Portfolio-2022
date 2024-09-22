@@ -6,10 +6,9 @@ import { HiDocumentText } from "react-icons/hi";
 import { BsFillGearFill } from "react-icons/bs";
 import { MdPhone } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
-import { makeStyles, styled } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import CloseIcon from "@material-ui/icons/Close";
-import Switch from "@material-ui/core/Switch";
 import ThemeSwitch from '../../components/Themes/ThemeSwitch';
 
 import "./Navbar.css";
@@ -17,7 +16,7 @@ import { headerData } from "../../data/headerData";
 import { ThemeContext } from "../../contexts/ThemeContext";
 
 function Navbar() {
-    const { theme, setHandleDrawer, isDarkMode } =
+    const { theme, setHandleDrawer } =
         useContext(ThemeContext);
 
     const [open, setOpen] = useState(false);
@@ -82,16 +81,16 @@ function Navbar() {
             },
         },
         drawerItem: {
-            margin: "2rem auto",
+            margin: "1.5rem auto", // Réduit la marge verticale
             borderRadius: "78.8418px",
             background: theme.secondary,
             color: theme.primary,
             width: "85%",
-            height: "60px",
+            height: "50px", // Réduit la hauteur
             display: "flex",
             alignItems: "center",
-            justifyContent: "space-evenly",
-            padding: "0 30px",
+            justifyContent: "flex-start", // Aligne les éléments à gauche
+            padding: "0 20px", // Réduit le padding horizontal
             boxSizing: "border-box",
             border: "2px solid",
             borderColor: theme.primary,
@@ -102,23 +101,24 @@ function Navbar() {
             },
             [t.breakpoints.down("sm")]: {
                 width: "100%",
-                padding: "0 25px",
-                height: "55px",
+                padding: "0 15px", // Réduit encore le padding sur petit écran
+                height: "45px", // Réduit encore la hauteur sur petit écran
             },
         },
         drawerLinks: {
             fontFamily: "var(--primaryFont)",
-            width: "50%",
-            fontSize: "1.3rem",
+            fontSize: "1.1rem", // Réduit légèrement la taille de la police
             fontWeight: 600,
+            marginLeft: "10px", // Ajoute un espace entre l'icône et le texte
+            whiteSpace: "nowrap", // Empêche le texte de passer à la ligne
             [t.breakpoints.down("sm")]: {
-                fontSize: "1.125rem",
+                fontSize: "1rem",
             },
         },
         drawerIcon: {
-            fontSize: "1.6rem",
+            fontSize: "1.3rem", // Réduit légèrement la taille de l'icône
             [t.breakpoints.down("sm")]: {
-                fontSize: "1.385rem",
+                fontSize: "1.15rem",
             },
         },
         themeSwitch: {
