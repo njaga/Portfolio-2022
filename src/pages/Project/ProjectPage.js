@@ -8,10 +8,14 @@ import {
     MenuItem,
     Button,
     useMediaQuery,
+    Typography,
+    Box,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import { makeStyles, withStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles, withStyles, useTheme as useMaterialTheme } from "@material-ui/core/styles";
 import { AiOutlineHome } from "react-icons/ai";
+import { FaSearch } from "react-icons/fa";
+import Fade from 'react-reveal/Fade';
 
 import "./ProjectPage.css";
 import { SingleProject } from "../../components";
@@ -20,12 +24,20 @@ import { projectsData } from "../../data/projectsData";
 import { headerData } from "../../data/headerData";
 
 function ProjectPage() {
+    const { theme, isDarkMode } = useContext(ThemeContext);
+    const [, forceUpdate] = useState();
+
+    // Forcer une mise à jour du composant lorsque le thème change
+    useEffect(() => {
+        forceUpdate({});
+    }, [theme, isDarkMode]);
+
     const [search, setSearch] = useState("");
     const [category, setCategory] = useState("all");
     const [sortBy, setSortBy] = useState("newest");
     const [currentPage, setCurrentPage] = useState(1);
-    const { theme } = useContext(ThemeContext);
-    const materialTheme = useTheme();
+    const [technology, setTechnology] = useState("all");
+    const materialTheme = useMaterialTheme();
     const isMobile = useMediaQuery(materialTheme.breakpoints.down("sm"));
     const pageTopRef = useRef(null);
 
@@ -38,7 +50,8 @@ function ProjectPage() {
                     project.projectName + project.projectDesc + project.tags.join(" ");
                 return (
                     content.toLowerCase().includes(search.toLowerCase()) &&
-                    (category === "all" || project.category === category)
+                    (category === "all" || project.category === category) &&
+                    (technology === "all" || project.tags.includes(technology))
                 );
             })
             .sort((a, b) => {
@@ -48,7 +61,7 @@ function ProjectPage() {
                     return new Date(a.date) - new Date(b.date);
                 }
             });
-    }, [search, category, sortBy]);
+    }, [search, category, technology, sortBy]);
 
     useEffect(() => {
         setCurrentPage(1);
@@ -124,19 +137,19 @@ function ProjectPage() {
             width: "100%",
         },
         inputLabel: {
-            color: '#ffffff',
+            color: theme.tertiary,
         },
         select: {
-            color: '#ffffff',
+            color: theme.tertiary,
             '&:before': {
-                borderColor: '#ffffff',
+                borderColor: theme.tertiary,
             },
             '&:after': {
-                borderColor: '#ffffff',
+                borderColor: theme.tertiary,
             },
         },
         icon: {
-            fill: '#ffffff',
+            fill: theme.tertiary,
         },
         pagination: {
             display: "flex",
@@ -163,20 +176,51 @@ function ProjectPage() {
             width: "100%",
             marginTop: isMobile ? "1rem" : 0,
         },
+        noProjectsFound: {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '50vh',
+            width: '100%',
+            color: theme.tertiary,
+            textAlign: 'center',
+            padding: '2rem',
+        },
+        searchIcon: {
+            fontSize: '5rem',
+            marginBottom: '2rem',
+            color: theme.primary,
+        },
+        noProjectsText: {
+            fontWeight: 'bold',
+            marginBottom: '1rem',
+        },
+        suggestionText: {
+            opacity: 0.8,
+        },
     }));
 
     const classes = useStyles();
 
     const WhiteTextTypography = withStyles({
         root: {
-            color: "#FFFFFF"
+            color: theme.tertiary
         }
     })(InputLabel);
+
+    const technologies = useMemo(() => {
+        const techs = new Set();
+        projectsData.forEach(project => {
+            project.tags.forEach(tag => techs.add(tag));
+        });
+        return Array.from(techs);
+    }, []);
 
     return (
         <div className="projectPage" style={{ backgroundColor: theme.secondary }}>
             <Helmet>
-                <title>{headerData.name} | Projects</title>
+                <title>{headerData.name} | Réalisations</title>
             </Helmet>
             <div
                 className="projectPage-header"
@@ -232,6 +276,26 @@ function ProjectPage() {
                             <MenuItem value="oldest">Plus ancien</MenuItem>
                         </Select>
                     </FormControl>
+                    <FormControl className={classes.formControl}>
+                        <WhiteTextTypography>Technologie</WhiteTextTypography>
+                        <Select
+                            value={technology}
+                            onChange={(e) => setTechnology(e.target.value)}
+                            className={classes.select}
+                            inputProps={{
+                                classes: {
+                                    icon: classes.icon,
+                                },
+                            }}
+                        >
+                            <MenuItem value="all">Toutes</MenuItem>
+                            {technologies.map((tech) => (
+                                <MenuItem key={tech} value={tech}>
+                                    {tech}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
                 </div>
                 <div className="project-container">
                     <Grid
@@ -240,20 +304,38 @@ function ProjectPage() {
                         direction="row"
                         alignItems="center"
                         justifyContent="center"
+                        spacing={4}
                     >
-                        {currentProjects.map((project) => (
-                            <SingleProject
-                                theme={theme}
-                                key={project.id}
-                                id={project.id}
-                                name={project.projectName}
-                                desc={project.projectDesc}
-                                tags={project.tags}
-                                code={project.code}
-                                demo={project.demo}
-                                image={project.image}
-                            />
-                        ))}
+                        {currentProjects.length > 0 ? (
+                            currentProjects.map((project) => (
+                                <Fade bottom key={project.id}>
+                                    <Grid item>
+                                        <SingleProject
+                                            theme={theme}
+                                            id={project.id}
+                                            name={project.projectName}
+                                            desc={project.projectDesc}
+                                            tags={project.tags}
+                                            code={project.code}
+                                            demo={project.demo}
+                                            image={project.image}
+                                        />
+                                    </Grid>
+                                </Fade>
+                            ))
+                        ) : (
+                            <Fade>
+                                <Box className={classes.noProjectsFound}>
+                                    <FaSearch className={classes.searchIcon} />
+                                    <Typography variant="h4" className={classes.noProjectsText}>
+                                        Aucune réalisation trouvée
+                                    </Typography>
+                                    <Typography variant="body1" className={classes.suggestionText}>
+                                        Essayez de modifier vos critères de recherche ou de filtrage
+                                    </Typography>
+                                </Box>
+                            </Fade>
+                        )}
                     </Grid>
                 </div>
                 <div className={classes.pagination}>

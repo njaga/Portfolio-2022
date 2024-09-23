@@ -1,13 +1,13 @@
 import React, { useContext, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { ThemeContext } from './contexts/ThemeContext';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ThemeProvider, ThemeContext } from './contexts/ThemeContext';
 import { Main, ProjectPage, NotFound } from './pages';
 import { BackToTop } from './components';
 import ScrollToTop from './utils/ScrollToTop';
 
 import './App.css';
 
-function App() {
+function AppContent() {
     const { theme } = useContext(ThemeContext);
 
     useEffect(() => {
@@ -28,13 +28,19 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Main />} />
                     <Route path="/projects" element={<ProjectPage />} />
-                    
-                    {/* 404 page */}
                     <Route path="*" element={<NotFound />} />
                 </Routes>
+                <BackToTop />
             </Router>
-            <BackToTop />
         </div>
+    );
+}
+
+function App() {
+    return (
+        <ThemeProvider>
+            <AppContent />
+        </ThemeProvider>
     );
 }
 

@@ -1,52 +1,33 @@
-import React, { createContext, useState, useEffect } from 'react'
+import React, { createContext, useState, useEffect, useMemo } from 'react'
 import { themeData } from '../data/themeData'
 import { blueThemeLight, blueThemeDark } from '../theme/theme'
 
 export const ThemeContext = createContext()
 
-function ThemeContextProvider(props) {
-    const getInitialTheme = () => {
-        const savedTheme = localStorage.getItem('theme')
-        if (savedTheme) {
-            return JSON.parse(savedTheme)
-        }
-        return themeData.theme
-    }
+function ThemeProvider({ children }) {
+    const [isDarkMode, setIsDarkMode] = useState(() => {
+        const savedMode = localStorage.getItem('isDarkMode')
+        // Si aucun mode n'est sauvegardé, on retourne true pour le mode sombre par défaut
+        return savedMode !== null ? JSON.parse(savedMode) : true
+    })
 
-    const getInitialIsDarkMode = () => {
-        const savedIsDarkMode = localStorage.getItem('isDarkMode')
-        if (savedIsDarkMode !== null) {
-            return JSON.parse(savedIsDarkMode)
-        }
-        return themeData.theme === blueThemeDark
-    }
-
-    const [theme, setTheme] = useState(getInitialTheme)
-    const [isDarkMode, setIsDarkMode] = useState(getInitialIsDarkMode)
-    const [drawerOpen, setDrawerOpen] = useState(false)
+    const theme = useMemo(() => isDarkMode ? blueThemeDark : blueThemeLight, [isDarkMode])
 
     useEffect(() => {
-        localStorage.setItem('theme', JSON.stringify(theme))
         localStorage.setItem('isDarkMode', JSON.stringify(isDarkMode))
-    }, [theme, isDarkMode])
-
-    const setHandleDrawer = () => {
-        setDrawerOpen(!drawerOpen)
-    }
+    }, [isDarkMode])
 
     const toggleTheme = () => {
-        setIsDarkMode(!isDarkMode)
-        setTheme(currentTheme => 
-            currentTheme === blueThemeLight ? blueThemeDark : blueThemeLight
-        )
+        setIsDarkMode(prevMode => !prevMode)
     }
 
-    const value = { theme, drawerOpen, setHandleDrawer, toggleTheme, isDarkMode }
+    const value = useMemo(() => ({ theme, isDarkMode, toggleTheme }), [theme, isDarkMode])
+
     return (
         <ThemeContext.Provider value={value}>
-            {props.children}
+            {children}
         </ThemeContext.Provider>
     )
 }
 
-export default ThemeContextProvider
+export { ThemeProvider }
