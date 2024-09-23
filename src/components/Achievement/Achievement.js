@@ -11,7 +11,8 @@ function Achievement() {
     const { theme } = useContext(ThemeContext);
     const [showAll, setShowAll] = useState(false);
     const achievementRef = useRef(null);
-    const fourthElementRef = useRef(null);
+    const thirdElementRef = useRef(null);
+    const [isInitialLoad, setIsInitialLoad] = useState(true);
 
     const useStyles = makeStyles(() => ({
         viewAllBtn: {
@@ -72,17 +73,20 @@ function Achievement() {
 
     const handleViewToggle = () => {
         setShowAll(!showAll);
+        setIsInitialLoad(false);
     };
 
     useEffect(() => {
-        if (showAll && fourthElementRef.current) {
-            // Scroll vers le quatrième élément uniquement lorsque "Voir Plus" est cliqué
-            fourthElementRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        } else if (!showAll && achievementRef.current && window.location.hash === '#achievement') {
-            // Scroll vers le haut de la section achievement seulement si l'URL contient le hash #achievement
-            achievementRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (!isInitialLoad) {
+            if (!showAll && thirdElementRef.current) {
+                // Scroll to the third element when "Voir Moins" is clicked
+                thirdElementRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else if (showAll && achievementRef.current) {
+                // Scroll to the top of the achievement section when "Voir Plus" is clicked
+                achievementRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
         }
-    }, [showAll]);
+    }, [showAll, isInitialLoad]);
 
     return (
         <>
@@ -94,7 +98,7 @@ function Achievement() {
                     </div>
                     <div className="achievement-cards">
                         {achievementData.achievements.slice(0, showAll ? achievementData.achievements.length : 3).map((achieve, index) => ( 
-                            <div key={achieve.id} ref={index === 3 ? fourthElementRef : null}>
+                            <div key={achieve.id} ref={index === 2 ? thirdElementRef : null}>
                                 <AchievementCard 
                                     id={achieve.id}
                                     title={achieve.title}
