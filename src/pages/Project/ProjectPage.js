@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 import { makeStyles, withStyles, useTheme as useMaterialTheme } from "@material-ui/core/styles";
 import { AiOutlineHome } from "react-icons/ai";
 import { FaSearch } from "react-icons/fa";
-import Fade from 'react-reveal/Fade';
+import { motion } from 'framer-motion';
 
 import "./ProjectPage.css";
 import { SingleProject } from "../../components";
@@ -308,7 +308,12 @@ function ProjectPage() {
                     >
                         {currentProjects.length > 0 ? (
                             currentProjects.map((project) => (
-                                <Fade bottom key={project.id}>
+                                <motion.div
+                                    key={project.id}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.5 }}
+                                >
                                     <Grid item>
                                         <SingleProject
                                             theme={theme}
@@ -321,10 +326,14 @@ function ProjectPage() {
                                             image={project.image}
                                         />
                                     </Grid>
-                                </Fade>
+                                </motion.div>
                             ))
                         ) : (
-                            <Fade>
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 0.5 }}
+                            >
                                 <Box className={classes.noProjectsFound}>
                                     <FaSearch className={classes.searchIcon} />
                                     <Typography variant="h4" className={classes.noProjectsText}>
@@ -334,7 +343,7 @@ function ProjectPage() {
                                         Essayez de modifier vos critères de recherche ou de filtrage
                                     </Typography>
                                 </Box>
-                            </Fade>
+                            </motion.div>
                         )}
                     </Grid>
                 </div>

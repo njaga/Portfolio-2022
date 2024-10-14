@@ -29,7 +29,7 @@ const ThemeSwitch = () => {
       },
     },
     '& .MuiSwitch-thumb': {
-      backgroundColor: theme.palette.mode === 'dark' ? '#003892' : '#001e3c',
+      backgroundColor: theme.palette.mode === 'dark' ? '#1e1b4b' : '#545fc4',
       width: 32,
       height: 32,
       '&:before': {

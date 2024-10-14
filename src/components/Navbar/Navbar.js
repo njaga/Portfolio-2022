@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { NavHashLink as NavLink } from "react-router-hash-link";
-import Fade from "react-reveal/Fade";
+import { motion, AnimatePresence } from "framer-motion";
 import { IoMenuSharp, IoHomeSharp } from "react-icons/io5";
 import { HiDocumentText } from "react-icons/hi";
 import { BsFillGearFill } from "react-icons/bs";
@@ -16,19 +16,22 @@ import { headerData } from "../../data/headerData";
 import { ThemeContext } from "../../contexts/ThemeContext";
 
 function Navbar() {
-    const { theme, setHandleDrawer } =
-        useContext(ThemeContext);
+    const { theme, handleDrawer } = useContext(ThemeContext);
 
     const [open, setOpen] = useState(false);
 
     const handleDrawerOpen = () => {
         setOpen(true);
-        setHandleDrawer();
+        if (handleDrawer) {
+            handleDrawer();
+        }
     };
 
     const handleDrawerClose = () => {
         setOpen(false);
-        setHandleDrawer();
+        if (handleDrawer) {
+            handleDrawer();
+        }
     };
 
     const useStyles = makeStyles((t) => ({
@@ -136,6 +139,10 @@ function Navbar() {
 
     const classes = useStyles();
 
+    const fadeVariants = {
+        hidden: { opacity: 0, x: -50 },
+        visible: { opacity: 1, x: 0 }
+    };
 
     return (
         <div className="navbar">
@@ -184,59 +191,96 @@ function Navbar() {
 
                 <div onClick={handleDrawerClose}>
                     <div className="navLink--container">
-                        <Fade left>
-                            <NavLink to="/" smooth={true} spy="true" duration={2000}>
-                                <div className={classes.drawerItem}>
-                                    <IoHomeSharp className={classes.drawerIcon} />
-                                    <span className={classes.drawerLinks}>Accueil</span>
-                                </div>
-                            </NavLink>
-                        </Fade>
-
-                        <Fade left>
-                            <NavLink to="/#about" smooth={true} spy="true" duration={2000}>
-                                <div className={classes.drawerItem}>
-                                    <FaUser className={classes.drawerIcon} />
-                                    <span className={classes.drawerLinks}>A Propos</span>
-                                </div>
-                            </NavLink>
-                        </Fade>
-
-                        <Fade left>
-                            <NavLink to="/#resume" smooth={true} spy="true" duration={2000}>
-                                <div className={classes.drawerItem}>
-                                    <HiDocumentText className={classes.drawerIcon} />
-                                    <span className={classes.drawerLinks}>Etudes</span>
-                                </div>
-                            </NavLink>
-                        </Fade>
-
-                        <Fade left>
-                            <NavLink to="/#projects" smooth={true} spy="true" duration={2000}>
-                                <div className={classes.drawerItem}>
-                                    <FaCode  className={classes.drawerIcon} />
-                                    <span className={classes.drawerLinks}>Réalisations</span>
-                                </div>
-                            </NavLink>
-                        </Fade>
-
-                        <Fade left>
-                            <NavLink to="/#services" smooth={true} spy="true" duration={2000}>
-                                <div className={classes.drawerItem}>
-                                    <BsFillGearFill className={classes.drawerIcon} />
-                                    <span className={classes.drawerLinks}>Services</span>
-                                </div>
-                            </NavLink>
-                        </Fade>
-
-                        <Fade left>
-                            <NavLink to="/#contacts" smooth={true} spy="true" duration={2000}>
-                                <div className={classes.drawerItem}>
-                                    <MdPhone className={classes.drawerIcon} />
-                                    <span className={classes.drawerLinks}>Contact</span>
-                                </div>
-                            </NavLink>
-                        </Fade>
+                        <AnimatePresence>
+                            {open && (
+                                <>
+                                    <motion.div
+                                        variants={fadeVariants}
+                                        initial="hidden"
+                                        animate="visible"
+                                        exit="hidden"
+                                        transition={{ duration: 0.2 }}
+                                    >
+                                        <NavLink to="/" smooth={true} spy="true" duration={2000}>
+                                            <div className={classes.drawerItem}>
+                                                <IoHomeSharp className={classes.drawerIcon} />
+                                                <span className={classes.drawerLinks}>Accueil</span>
+                                            </div>
+                                        </NavLink>
+                                    </motion.div>
+                                    <motion.div
+                                        variants={fadeVariants}
+                                        initial="hidden"
+                                        animate="visible"
+                                        exit="hidden"
+                                        transition={{ duration: 0.2, delay: 0.1 }}
+                                    >
+                                        <NavLink to="/#about" smooth={true} spy="true" duration={2000}>
+                                            <div className={classes.drawerItem}>
+                                                <FaUser className={classes.drawerIcon} />
+                                                <span className={classes.drawerLinks}>A Propos</span>
+                                            </div>
+                                        </NavLink>
+                                    </motion.div>
+                                    <motion.div
+                                        variants={fadeVariants}
+                                        initial="hidden"
+                                        animate="visible"
+                                        exit="hidden"
+                                        transition={{ duration: 0.2, delay: 0.2 }}
+                                    >
+                                        <NavLink to="/#resume" smooth={true} spy="true" duration={2000}>
+                                            <div className={classes.drawerItem}>
+                                                <HiDocumentText className={classes.drawerIcon} />
+                                                <span className={classes.drawerLinks}>Etudes</span>
+                                            </div>
+                                        </NavLink>
+                                    </motion.div>
+                                    <motion.div
+                                        variants={fadeVariants}
+                                        initial="hidden"
+                                        animate="visible"
+                                        exit="hidden"
+                                        transition={{ duration: 0.2, delay: 0.3 }}
+                                    >
+                                        <NavLink to="/#projects" smooth={true} spy="true" duration={2000}>
+                                            <div className={classes.drawerItem}>
+                                                <FaCode className={classes.drawerIcon} />
+                                                <span className={classes.drawerLinks}>Réalisations</span>
+                                            </div>
+                                        </NavLink>
+                                    </motion.div>
+                                    <motion.div
+                                        variants={fadeVariants}
+                                        initial="hidden"
+                                        animate="visible"
+                                        exit="hidden"
+                                        transition={{ duration: 0.2, delay: 0.4 }}
+                                    >
+                                        <NavLink to="/#services" smooth={true} spy="true" duration={2000}>
+                                            <div className={classes.drawerItem}>
+                                                <BsFillGearFill className={classes.drawerIcon} />
+                                                <span className={classes.drawerLinks}>Services</span>
+                                            </div>
+                                        </NavLink>
+                                    </motion.div>
+                                    <motion.div
+                                        variants={fadeVariants}
+                                        initial="hidden"
+                                        animate="visible"
+                                        exit="hidden"
+                                        transition={{ duration: 0.2, delay: 0.5 }}
+                                    >
+                                        <NavLink to="/#contacts" smooth={true} spy="true" duration={2000}>
+                                            <div className={classes.drawerItem}>
+                                                <MdPhone className={classes.drawerIcon} />
+                                                <span className={classes.drawerLinks}>Contact</span>
+                                            </div>
+                                        </NavLink>
+                                    </motion.div>
+                                </>
+                            )}
+                        </AnimatePresence>
                     </div>  
                 </div>
             </Drawer>
